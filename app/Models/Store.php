@@ -20,7 +20,7 @@ class Store extends Model
             $model->store_id = self::generateStoreId();
             $model->api_key = self::generateApiKey();
             $model->user_id = auth()->user()->id;
-            $model->status = false;
+            $model->status = 'deactivated';
             $model->balance = 0;
             $model->charge = 2.5;
             // You can add more columns and their default values here

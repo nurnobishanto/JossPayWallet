@@ -53,7 +53,7 @@ class StoreResource extends Resource
                 Tables\Columns\ImageColumn::make('business_logo'),
                 Tables\Columns\TextColumn::make('business_name'),
                 Tables\Columns\TextColumn::make('balance'),
-                Tables\Columns\BooleanColumn::make('status'),
+                Tables\Columns\BadgeColumn::make('status'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

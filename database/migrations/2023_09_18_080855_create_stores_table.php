@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('server_ip')->nullable();
             $table->double('balance')->default(0.0);
             $table->double('charge')->default(2.75);
-            $table->boolean('status')->default(false);
+            $table->string('status')->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

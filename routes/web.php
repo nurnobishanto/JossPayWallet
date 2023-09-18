@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/wp-pay',[\App\Http\Controllers\PaymentController::class,'request_wp']);
+Route::get('/payment/{id}',[\App\Http\Controllers\PaymentController::class,'transaction_pay']);
+
+Route::post('/request',[\App\Http\Controllers\PaymentController::class,'request']);
+Route::post('/success',[\App\Http\Controllers\PaymentController::class,'success'])->name('success');
+Route::post('/fail',[\App\Http\Controllers\PaymentController::class,'fail'])->name('fail');
+Route::post('/cancel',[\App\Http\Controllers\PaymentController::class,'cancel'])->name('cancel');
+
 Route::get('/', function () {
     return view('welcome');
 });

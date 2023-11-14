@@ -44,7 +44,7 @@ Route::get('/qr', function () {
     $qrCodes['styleSquare'] = QrCode::size(120)->style('square')->generate('https://josspaywallet.com/');
     $qrCodes['styleRound'] = QrCode::size(120)->style('round')->generate('https://josspaywallet.com/');
 
-    $qrCodes['withImage'] = QrCode::size(200)->format('png')->merge('https://justonestopsolution.com/public/images/media/1683121246joss.png', .4)->generate('https://josspaywallet.com/');
+    $qrCodes['withImage'] = QrCode::size(200)->format('png')->merge('/public/vendor/adminlte/dist/img/AdminLTELogo.png', .4)->generate('https://josspaywallet.com/');
 
     return view('qr', $qrCodes);
 });

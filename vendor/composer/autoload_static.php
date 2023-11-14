@@ -112,6 +112,7 @@ class ComposerStaticInitfffe06c875ecff9ab79c24b228b3dee4
             'Spatie\\Ignition\\' => 16,
             'Spatie\\FlareClient\\' => 19,
             'Spatie\\Backtrace\\' => 17,
+            'SimpleSoftwareIO\\QrCode\\' => 24,
         ),
         'R' => 
         array (
@@ -406,6 +407,10 @@ class ComposerStaticInitfffe06c875ecff9ab79c24b228b3dee4
         'Spatie\\Backtrace\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/backtrace/src',
+        ),
+        'SimpleSoftwareIO\\QrCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src',
         ),
         'RyanChandler\\BladeCaptureDirective\\Database\\Factories\\' => 
         array (
@@ -732,7 +737,16 @@ class ComposerStaticInitfffe06c875ecff9ab79c24b228b3dee4
         'App\\Filament\\Resources\\TransactionResource\\Pages\\CreateTransaction' => __DIR__ . '/../..' . '/app/Filament/Resources/TransactionResource/Pages/CreateTransaction.php',
         'App\\Filament\\Resources\\TransactionResource\\Pages\\EditTransaction' => __DIR__ . '/../..' . '/app/Filament/Resources/TransactionResource/Pages/EditTransaction.php',
         'App\\Filament\\Resources\\TransactionResource\\Pages\\ListTransactions' => __DIR__ . '/../..' . '/app/Filament/Resources/TransactionResource/Pages/ListTransactions.php',
+        'App\\Filament\\Resources\\WithdrawAccountResource' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawAccountResource.php',
+        'App\\Filament\\Resources\\WithdrawAccountResource\\Pages\\CreateWithdrawAccount' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawAccountResource/Pages/CreateWithdrawAccount.php',
+        'App\\Filament\\Resources\\WithdrawAccountResource\\Pages\\EditWithdrawAccount' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawAccountResource/Pages/EditWithdrawAccount.php',
+        'App\\Filament\\Resources\\WithdrawAccountResource\\Pages\\ListWithdrawAccounts' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawAccountResource/Pages/ListWithdrawAccounts.php',
+        'App\\Filament\\Resources\\WithdrawRequestResource' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawRequestResource.php',
+        'App\\Filament\\Resources\\WithdrawRequestResource\\Pages\\CreateWithdrawRequest' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawRequestResource/Pages/CreateWithdrawRequest.php',
+        'App\\Filament\\Resources\\WithdrawRequestResource\\Pages\\EditWithdrawRequest' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawRequestResource/Pages/EditWithdrawRequest.php',
+        'App\\Filament\\Resources\\WithdrawRequestResource\\Pages\\ListWithdrawRequests' => __DIR__ . '/../..' . '/app/Filament/Resources/WithdrawRequestResource/Pages/ListWithdrawRequests.php',
         'App\\Filament\\Widgets\\LatestTransactions' => __DIR__ . '/../..' . '/app/Filament/Widgets/LatestTransactions.php',
+        'App\\Filament\\Widgets\\LatestWithdrawRequests' => __DIR__ . '/../..' . '/app/Filament/Widgets/LatestWithdrawRequests.php',
         'App\\Filament\\Widgets\\StatsOverview' => __DIR__ . '/../..' . '/app/Filament/Widgets/StatsOverview.php',
         'App\\Http\\Controllers\\Admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminController.php',
         'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
@@ -741,6 +755,8 @@ class ComposerStaticInitfffe06c875ecff9ab79c24b228b3dee4
         'App\\Http\\Controllers\\Admin\\StoreController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StoreController.php',
         'App\\Http\\Controllers\\Admin\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TransactionController.php',
         'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
+        'App\\Http\\Controllers\\Admin\\WithdrawAccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/WithdrawAccountController.php',
+        'App\\Http\\Controllers\\Admin\\WithdrawRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/WithdrawRequestController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -766,6 +782,8 @@ class ComposerStaticInitfffe06c875ecff9ab79c24b228b3dee4
         'App\\Models\\Store' => __DIR__ . '/../..' . '/app/Models/Store.php',
         'App\\Models\\Transaction' => __DIR__ . '/../..' . '/app/Models/Transaction.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\WithdrawAccount' => __DIR__ . '/../..' . '/app/Models/WithdrawAccount.php',
+        'App\\Models\\WithdrawRequest' => __DIR__ . '/../..' . '/app/Models/WithdrawRequest.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -6583,6 +6601,18 @@ class ComposerStaticInitfffe06c875ecff9ab79c24b228b3dee4
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\BTC' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/BTC.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\DataTypeInterface' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/DataTypeInterface.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\Email' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/Email.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\Geo' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/Geo.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\PhoneNumber' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/PhoneNumber.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\SMS' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/SMS.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\WiFi' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/WiFi.php',
+        'SimpleSoftwareIO\\QrCode\\Facades\\QrCode' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/Facades/QrCode.php',
+        'SimpleSoftwareIO\\QrCode\\Generator' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/Generator.php',
+        'SimpleSoftwareIO\\QrCode\\Image' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/Image.php',
+        'SimpleSoftwareIO\\QrCode\\ImageMerge' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/ImageMerge.php',
+        'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/QrCodeServiceProvider.php',
         'Spatie\\Backtrace\\Arguments\\ArgumentReducers' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/ArgumentReducers.php',
         'Spatie\\Backtrace\\Arguments\\ProvidedArgument' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/ProvidedArgument.php',
         'Spatie\\Backtrace\\Arguments\\ReduceArgumentPayloadAction' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/ReduceArgumentPayloadAction.php',

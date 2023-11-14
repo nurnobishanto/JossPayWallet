@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.12",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^5.11",
         "webbingbrasil/filament-copyactions": "^1.1",
         "yoeunes/toastr": "^2.3"

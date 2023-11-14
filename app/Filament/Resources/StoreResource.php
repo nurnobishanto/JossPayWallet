@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -61,7 +62,9 @@ class StoreResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-
+                Action::make('qr_code')->label('QR')
+                    ->url(fn (Store $record): string => route('store.default_payment_link_qr_code', ['store' => $record]))
+                    ->openUrlInNewTab()
             ])
             ->bulkActions([
 

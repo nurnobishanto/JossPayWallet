@@ -22,18 +22,8 @@ Route::post('/success',[\App\Http\Controllers\PaymentController::class,'success'
 Route::post('/fail',[\App\Http\Controllers\PaymentController::class,'fail'])->name('fail');
 Route::post('/cancel',[\App\Http\Controllers\PaymentController::class,'cancel'])->name('cancel');
 
-Route::get('/test',function (){
-    $withdrawals = WithdrawAccount::where('status', 'pending')
-        ->where('user_id', 1)
-        ->get(['id', 'bank_name', 'account_name']);
-
-    $data = [];
-    foreach ($withdrawals as $withdrawal){
-        $data[$withdrawal->id] = $withdrawal->bank_name.' - '.$withdrawal->account_name;
-    }
-
-    return $data;
-});
+Route::get('qr/{store}/default-payment',[\App\Http\Controllers\PLController::class,'default_payment_link_qr_code'])->name('store.default_payment_link_qr_code');
+Route::get('{store}/default-payment',[\App\Http\Controllers\PLController::class,'default_payment_link'])->name('store.default_payment_link');
 Route::get('/qr', function () {
     $qrCodes = [];
     $qrCodes['simple'] = QrCode::size(120)->generate('https://josspaywallet.com/');

@@ -31,7 +31,7 @@ class TransactionController extends Controller
     }
 
 
-    public function transactions(Request $request)
+    public function store(Request $request)
     {
         App::setLocale(session('locale'));
         $request->validate([

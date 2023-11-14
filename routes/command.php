@@ -57,4 +57,11 @@ Route::prefix('command')->group(function (){
         toastr()->success(__('notification.language').__('notification.changed_success'),__('notification.language').__('notification.changed'));
         return redirect()->back();
     });
+    Route::get('/seed', function (){
+        App::setLocale(session('locale'));
+        $seeder = new \Database\Seeders\RoleSeeder();
+        $seeder->run();
+        toastr()->info('Seed done');
+        return redirect()->route('admin.dashboard');
+    });
 });

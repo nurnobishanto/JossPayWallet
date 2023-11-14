@@ -24,5 +24,6 @@ return [
     'settings' => 'Settings',
     'global_settings' => 'Global Settings',
     'site_setting' => 'Site Setting',
+    'seed' => 'Seed',
 
 ];

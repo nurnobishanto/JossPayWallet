@@ -310,7 +310,8 @@ return [
         ],
         [
             'text' => 'dashboard',
-            'icon'    => 'fas fa-cogs',
+            'url'  => 'admin',
+            'icon'    => 'fas fa-home',
         ],
         [
             'text'        => 'users',
@@ -329,6 +330,18 @@ return [
             'url'         => 'admin/transactions',
             'icon'        => 'fas fa-exchange-alt',
             'can'         => 'transaction_manage',
+        ],
+        [
+            'text'        => 'Withdraw Request',
+            'url'         => 'admin/withdraw-requests',
+            'icon'        => 'fas fa-exchange-alt',
+            'can'         => 'withdraw_request_manage',
+        ],
+        [
+            'text'        => 'Withdraw Account',
+            'url'         => 'admin/withdraw-accounts',
+            'icon'        => 'fas fa-exchange-alt',
+            'can'         => 'withdraw_account_manage',
         ],
         ['header' => 'settings'],
         [
@@ -374,6 +387,11 @@ return [
                     'url' => 'command/migrate'
                 ],
                 [
+                    'text' => 'seed',
+                    'can'  => 'command_seed',
+                    'url' => 'command/seed'
+                ],
+                [
                     'text' => 'fresh_migrate',
                     'can'  => 'command_migrate_fresh',
                     'url' => 'command/migrate-fresh'
@@ -408,13 +426,6 @@ return [
                     'url'         => 'admin/permissions',
                     'icon'        => 'fas fa-key',
                     'can'         => 'permission_manage',
-                ],
-                ['header' => 'users_admins'],
-                [
-                    'text'        => 'users',
-                    'url'         => 'admin/users',
-                    'icon'        => 'fas fa-users',
-                    'can'         => 'user_manage',
                 ],
                 [
                     'text'        => 'admins',

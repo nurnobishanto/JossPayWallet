@@ -10,6 +10,27 @@ if (!function_exists('myCustomFunction')) {
         // Your custom logic here
     }
 }
+if (!function_exists('userWithdrawAmount')) {
+
+    function userWithdrawAmount($id,$status)
+    {
+        return \App\Models\WithdrawRequest::where('user_id',$id)->where('status',$status)->sum('amount');
+    }
+}
+if (!function_exists('userTransactionsAmount')) {
+
+    function userTransactionsAmount($id,$status)
+    {
+        return \App\Models\Transaction::where('user_id',$id)->where('status',$status)->sum('store_amount');
+    }
+}
+if (!function_exists('userTotalBalance')) {
+
+    function userTotalBalance($id)
+    {
+        return \App\Models\Store::where('user_id',$id)->sum('balance');
+    }
+}
 if (!function_exists('setSetting')) {
 
     function setSetting($key, $value)

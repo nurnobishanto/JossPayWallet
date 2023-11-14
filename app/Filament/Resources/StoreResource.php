@@ -56,18 +56,15 @@ class StoreResource extends Resource
                 Tables\Columns\BadgeColumn::make('status'),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
 
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+
             ]);
     }
 

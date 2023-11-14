@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WithdrawAccountController;
+use App\Http\Controllers\Admin\WithdrawRequestController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,3 +39,15 @@ Route::get('/transactions/trashed',[TransactionController::class,'trashed_list']
 Route::get('/transactions/trashed/{transaction}/restore',[TransactionController::class,'restore'])->middleware('permission:transaction_manage')->name('transactions.restore');
 Route::get('/transactions/trashed/{transaction}/delete',[TransactionController::class,'force_delete'])->middleware('permission:transaction_manage')->name('transactions.force_delete');
 Route::resource('/transactions',TransactionController::class)->middleware('permission:transaction_manage');
+
+//Withdraw Account
+Route::get('/withdraw-accounts/trashed',[WithdrawAccountController::class,'trashed_list'])->middleware('permission:withdraw_account_manage')->name('withdraw-accounts.trashed');
+Route::get('/withdraw-accounts/trashed/{withdraw_account}/restore',[WithdrawAccountController::class,'restore'])->middleware('permission:withdraw_account_manage')->name('withdraw-accounts.restore');
+Route::get('/withdraw-accounts/trashed/{withdraw_account}/delete',[WithdrawAccountController::class,'force_delete'])->middleware('permission:withdraw_account_manage')->name('withdraw-accounts.force_delete');
+Route::resource('/withdraw-accounts',WithdrawAccountController::class)->middleware('permission:withdraw_account_manage');
+
+//Withdraw Request
+Route::get('/withdraw-requests/trashed',[WithdrawRequestController::class,'trashed_list'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.trashed');
+Route::get('/withdraw-requests/trashed/{withdraw_request}/restore',[WithdrawRequestController::class,'restore'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.restore');
+Route::get('/withdraw-requests/trashed/{withdraw_request}/delete',[WithdrawRequestController::class,'force_delete'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.force_delete');
+Route::resource('/withdraw-requests',WithdrawRequestController::class)->middleware('permission:withdraw_request_manage');

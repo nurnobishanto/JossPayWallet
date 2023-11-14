@@ -11,18 +11,21 @@ class StatsOverview extends BaseWidget
     protected function getCards(): array
     {
         return [
-            Card::make('Unique views', '192.1k')
-                ->description('32k increase')
-                ->descriptionIcon('heroicon-s-trending-up')
+            Card::make('Current Balance', userTotalBalance(auth('web')->user()->id))
+                ->description('Available Balance')
                 ->color('success'),
-            Card::make('Bounce rate', '21%')
-                ->description('7% increase')
-                ->descriptionIcon('heroicon-s-trending-down')
-                ->color('danger'),
-            Card::make('Average time on page', '3:12')
-                ->description('3% increase')
-                ->descriptionIcon('heroicon-s-trending-up')
+            Card::make('Total Withdraw', userWithdrawAmount(auth('web')->user()->id,'success'))
+                ->description('Total Withdraw')
+                ->color('secondary'),
+            Card::make('Pending Withdraw', userWithdrawAmount(auth('web')->user()->id,'pending'))
+                ->description('Pending Withdraw')
+                ->color('secondary'),
+            Card::make('Total Transactions', userTransactionsAmount(auth('web')->user()->id,'success'))
+                ->description('Successful Transactions')
                 ->color('success'),
+            Card::make('Pending Transactions', userTransactionsAmount(auth('web')->user()->id,'pending'))
+                ->description('Pending Transactions')
+                ->color('warning'),
         ];
     }
 }

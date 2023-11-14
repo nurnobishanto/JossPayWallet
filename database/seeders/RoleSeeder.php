@@ -16,10 +16,15 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $superAdmin = Role::create(['name' => 'super_admin']);
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'employee']);
-        Role::create(['name' => 'user']);
+
+        $superAdmin = Role::where('name','super_admin')->first();
+        if (!$superAdmin){
+            $superAdmin = Role::create(['name' => 'super_admin']);
+            Role::create(['name' => 'admin']);
+            Role::create(['name' => 'employee']);
+            Role::create(['name' => 'user']);
+        }
+
         $permissions = [
             [
                 'group_name' => 'Global',
@@ -37,6 +42,7 @@ class RoleSeeder extends Seeder
                     'command_route_clear',
                     'command_optimize',
                     'command_migrate',
+                    'command_seed',
                     'command_migrate_fresh',
                     'command_migrate_fresh_seed',
                 ]
@@ -108,6 +114,28 @@ class RoleSeeder extends Seeder
                     'transaction_create',
                 ]
             ],
+            [
+                'group_name' => 'WithdrawRequest',
+                'permissions' => [
+                    'withdraw_request_manage',
+                    'withdraw_request_list',
+                    'withdraw_request_view',
+                    'withdraw_request_update',
+                    'withdraw_request_delete',
+                    'withdraw_request_create',
+                ]
+            ],
+            [
+                'group_name' => 'WithdrawAccount',
+                'permissions' => [
+                    'withdraw_account_manage',
+                    'withdraw_account_list',
+                    'withdraw_account_view',
+                    'withdraw_account_update',
+                    'withdraw_account_delete',
+                    'withdraw_account_create',
+                ]
+            ],
 
 
         ];
@@ -116,7 +144,10 @@ class RoleSeeder extends Seeder
             $permissions_group = $permissions[$i]['group_name'];
             for ($j = 0;$j<count($permissions[$i]['permissions']);$j++){
                 //Admin guard Permisson
-                $super_permission =  Permission::create(['name'=>$permissions[$i]['permissions'][$j],'group_name'=>$permissions_group]);
+                $super_permission = Permission::where('name',$permissions[$i]['permissions'][$j])->first();
+                if (!$super_permission){
+                    $super_permission =  Permission::create(['name'=>$permissions[$i]['permissions'][$j],'group_name'=>$permissions_group]);
+                }
                 $superAdmin->givePermissionTo($super_permission);
                 $super_permission->assignRole($superAdmin);
 

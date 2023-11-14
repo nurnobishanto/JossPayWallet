@@ -6,6 +6,7 @@ use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
 use App\Models\Store;
 use App\Models\Transaction;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
@@ -15,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
 class TransactionResource extends Resource
 {
@@ -28,12 +30,17 @@ class TransactionResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('user_id')
+                    ->required()
+                    ->label('Select User')
+                    ->options(User::where('id',auth()->user()->id)->pluck('name','id')->toArray())->default(auth()->user()->id),
+
                 Select::make('store_id')
                     ->required()
                     ->label('Select Store')
                     ->options(Store::where('user_id',auth()->user()->id)->pluck('business_name','id')->toArray()),
 
-                Forms\Components\TextInput::make('tran_id')->default(uniqid())->required(),
+                Forms\Components\TextInput::make('tran_id')->default(uniqid())->required()->disabled()->prefixAction(CopyAction::make()),
                 Forms\Components\TextInput::make('success_url')->url()->required(),
                 Forms\Components\TextInput::make('fail_url')->url()->required(),
                 Forms\Components\TextInput::make('cancel_url')->url()->required(),
@@ -68,7 +75,6 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('status')->sortable()
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('status')
                     ->placeholder('Filter by status')
                     ->options([
@@ -81,12 +87,9 @@ class TransactionResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+
             ]);
     }
 

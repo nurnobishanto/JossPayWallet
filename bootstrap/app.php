@@ -18,8 +18,11 @@ $environmentFile = '.env'; // Default environment file
 
 $domain = $_SERVER['HTTP_HOST'] ?? '';
 
-if ($domain === 'sandbox.josspaywallet.com' || $domain === 'www.sandbox.josspaywallet.com') {
+if ($domain === 'sandbox.justonestopsolution.com' || $domain === 'www.sandbox.justonestopsolution.com') {
     $environmentFile = '.env.sandbox';
+}
+elseif ($domain === 'pay.justonestopsolution.com' || $domain === 'www.pay.justonestopsolution.com') {
+    $environmentFile = '.env.pay';
 }
 elseif ($domain === 'localhost' || $domain === '127.0.0.1' || $domain === '127.0.0.1:8000') {
     $environmentFile = '.env';

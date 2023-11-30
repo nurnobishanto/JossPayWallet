@@ -79,7 +79,7 @@ class PaymentController extends Controller
                     'cus_fax' => $request->cus_fax,
                 ]);
             }
-
+            $transaction = Transaction::where('tran_id',$request->tran_id)->first();
             if($transaction->status != 'success'){
                 $fields = array(
                     'store_id' => env('AMAR_PAY_STORE_ID'), //store id will be aamarpay,  contact integration@aamarpay.com for test/live id

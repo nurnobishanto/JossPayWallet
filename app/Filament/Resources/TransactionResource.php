@@ -71,7 +71,7 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('tran_id')->label('Trx ID')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('bank_txn')->label('Bank TXN ')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('amount')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('store_amount')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('customer_store_amount')->sortable()->searchable()->label('Store Amount'),
                 Tables\Columns\TextColumn::make('desc')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cus_name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cus_phone')->sortable()->searchable(),

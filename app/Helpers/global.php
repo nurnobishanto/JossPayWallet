@@ -21,7 +21,7 @@ if (!function_exists('userTransactionsAmount')) {
 
     function userTransactionsAmount($id,$status)
     {
-        return \App\Models\Transaction::where('user_id',$id)->where('status',$status)->sum('store_amount');
+        return \App\Models\Transaction::where('user_id',$id)->where('status',$status)->sum('customer_store_amount');
     }
 }
 if (!function_exists('userTotalBalance')) {

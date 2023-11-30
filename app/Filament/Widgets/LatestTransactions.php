@@ -25,7 +25,7 @@ class LatestTransactions extends BaseWidget
             Tables\Columns\TextColumn::make('desc'),
             Tables\Columns\TextColumn::make('cus_phone'),
             Tables\Columns\TextColumn::make('amount')->label('Original Amount'),
-            Tables\Columns\TextColumn::make('store_amount')->label('Store Amount'),
+            Tables\Columns\TextColumn::make('customer_store_amount')->label('Store Amount'),
             Tables\Columns\TextColumn::make('method')->label('Method'),
             Tables\Columns\TextColumn::make('tran_id')
                 ->label('Trx ID'),

@@ -68,6 +68,7 @@ class PaymentController extends Controller
                     'opt_c' => $request->opt_c,
                     'opt_d' => $request->opt_d,
                     'type' => $request->type,
+                    'status' => 'pending',
                     'ship_country' => $request->ship_country,
                     'ship_postcode' => $request->ship_postcode,
                     'ship_state' => $request->ship_state,
@@ -79,7 +80,7 @@ class PaymentController extends Controller
                 ]);
             }
 
-            if($transaction->status){
+            if($transaction->status != 'success'){
                 $fields = array(
                     'store_id' => env('AMAR_PAY_STORE_ID'), //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
                     'amount' => $transaction->amount, //transaction amount
@@ -299,22 +300,28 @@ class PaymentController extends Controller
         echo 'Payment is successful, please wait for the order to complete. Do not close/refresh your browser. Redirecting to...';
         $transaction  = Transaction::where('tran_id',$request->mer_txnid)->first();
         if($transaction){
+            $amountOriginal = $request->amount_original;
+            $chargePercentage = $transaction->store->charge;
+
+            $paymentCharge = ($amountOriginal * $chargePercentage) / 100;
             $transaction->pg_service_charge_bdt = $request->pg_service_charge_bdt;
             $transaction->amount_original = $request->amount_original;
             $transaction->gateway_fee = $request->gateway_fee;
+            $transaction->payment_charge = $paymentCharge;
             $transaction->pg_card_bank_name = $request->pg_card_bank_name;
             $transaction->card_number = $request->card_number;
             $transaction->card_holder = $request->card_holder;
             $transaction->pay_status = $request->pay_status;
             $transaction->card_type = $request->card_type;
             $transaction->store_amount = $request->store_amount;
+            $transaction->customer_store_amount = $request->store_amount - $paymentCharge;
             $transaction->bank_txn = $request->bank_txn;
             $transaction->method = $request->card_type;
             $transaction->status = 'success';
             $transaction->update();
 
             $store = $transaction->store;
-            $store->balance = $store->balance + $transaction->store_amount;
+            $store->balance = $store->balance + $transaction->customer_store_amount;
             $store->update();
         }
 

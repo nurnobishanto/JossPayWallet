@@ -22,10 +22,17 @@ class LatestTransactions extends BaseWidget
     {
         return [
             Tables\Columns\TextColumn::make('id'),
+            Tables\Columns\TextColumn::make('desc'),
+            Tables\Columns\TextColumn::make('cus_phone'),
+            Tables\Columns\TextColumn::make('amount')->label('Original Amount'),
+            Tables\Columns\TextColumn::make('store_amount')->label('Store Amount'),
+            Tables\Columns\TextColumn::make('method')->label('Method'),
             Tables\Columns\TextColumn::make('tran_id')
-                ->label('Transaction ID'),
+                ->label('Trx ID'),
+            Tables\Columns\TextColumn::make('bank_txn')
+                ->label('Bank TXN '),
             Tables\Columns\TextColumn::make('status'),
-            Tables\Columns\TextColumn::make('created_at'),
+            Tables\Columns\TextColumn::make('updated_at'),
         ];
 
     }

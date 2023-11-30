@@ -36,12 +36,11 @@
                                 <th width="17%">{{__('global.account_name')}}</th>
                                 <th width="18%">{{__('global.account_no')}}</th>
                                 <th width="20%">{{__('global.account_type')}}</th>
-                                <th width="7%">{{__('global.status')}}</th>
                                 <th width="15%">{{__('global.action')}}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($withdraw_accounts as $store)
+                            @foreach($withdraw_accounts as $withdraw_account)
                                 <tr>
                                     <td>{{$withdraw_account->id}}</td>
                                     <td>{{$withdraw_account->user->name}}</td>
@@ -49,11 +48,11 @@
                                     <td>{{$withdraw_account->account_name}}</td>
                                     <td>{{$withdraw_account->account_no}}</td>
                                     <td>{{__('global.'.$withdraw_account->account_type)}}</td>
-                                    <td>{{__('global.'.$withdraw_account->status)}}
+
                                     <td class="text-center">
                                         @can('withdraw_account_delete')
-                                        <a href="{{route('admin.withdraw-accounts.restore',['store'=>$store->id])}}"  class="btn btn-success btn-sm px-1 py-0"><i class="fa fa-arrow-left"></i></a>
-                                        <a href="{{route('admin.withdraw-accounts.force_delete',['store'=>$store->id])}}"  class="btn btn-danger btn-sm px-1 py-0"><i class="fa fa-trash"></i></a>
+                                        <a href="{{route('admin.withdraw-accounts.restore',['withdraw_account'=>$withdraw_account->id])}}"  class="btn btn-success btn-sm px-1 py-0"><i class="fa fa-arrow-left"></i></a>
+                                        <a href="{{route('admin.withdraw-accounts.force_delete',['withdraw_account'=>$withdraw_account->id])}}"  class="btn btn-danger btn-sm px-1 py-0"><i class="fa fa-trash"></i></a>
                                         @endcan
                                     </td>
                                 </tr>
@@ -68,7 +67,6 @@
                                 <th width="17%">{{__('global.account_name')}}</th>
                                 <th width="18%">{{__('global.account_no')}}</th>
                                 <th width="20%">{{__('global.account_type')}}</th>
-                                <th width="7%">{{__('global.status')}}</th>
                                 <th width="15%">{{__('global.action')}}</th>
                             </tr>
                             </tfoot>

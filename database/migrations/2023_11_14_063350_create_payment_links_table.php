@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('payment_links', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('store_id')->constrained('stores')->onDelete('cascade');
+            $table->string('tran_id')->unique();
+            $table->text('desc')->nullable();
+            $table->double('amount');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Store;
 use App\Models\WithdrawRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,87 +38,40 @@ class WithdrawRequestController extends Controller
         App::setLocale(session('locale'));
         $request->validate([
             'user_id' => 'required',
-            'business_name' => 'required',
-            'business_type' => 'required',
-            'mobile_number' => 'required',
-            'business_email' => 'required|email',
-            'domain_name' => 'required|unique:withdraw_requests',
-            'website_url' => 'required|unique:withdraw_requests',
-            'server_ip' => 'required',
-            'charge' => 'required',
-            'business_logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'store_id' => 'required',
+            'withdraw_account_id' => 'required',
+            'tran_id' => 'required',
+            'amount' => 'required',
         ]);
-        $imagePath = null;
-        if($request->file('business_logo')){
-            $imagePath = $request->file('business_logo')->withdraw_requests('business-logo');
-        }
+
         $withdraw_request = WithdrawRequest::create([
             'user_id' =>$request->user_id,
-            'business_name' =>$request->business_name,
-            'business_type' =>$request->business_type,
-            'mobile_number' =>$request->mobile_number,
-            'business_email' =>$request->business_email,
-            'domain_name' =>$request->domain_name,
-            'website_url' =>$request->website_url,
-            'server_ip' =>$request->server_ip,
-            'charge' =>$request->charge,
-            'status' =>$request->status,
-            'business_logo' =>$imagePath,
+            'store_id' =>$request->store_id,
+            'withdraw_account_id' =>$request->withdraw_account_id,
+            'tran_id' =>$request->tran_id,
+            'amount' =>$request->amount,
         ]);
         toastr()->success($withdraw_request->name.__('global.created_success'),__('global.admin').__('global.created'));
-
         return redirect()->route('admin.withdraw-requests.index');
     }
     public function show(string $id)
     {
         App::setLocale(session('locale'));
-        $withdraw_requests = WithdrawRequest::find($id);
-        return view('admin.withdraw_requests.show',compact('withdraw_requests'));
+        $withdraw_request = WithdrawRequest::find($id);
+        return view('admin.withdraw_requests.show',compact('withdraw_request'));
     }
     public function edit(string $id)
     {
         App::setLocale(session('locale'));
-        $withdraw_requests = WithdrawRequest::find($id);
+        $withdraw_request = WithdrawRequest::find($id);
         $users = User::orderBy('id','DESC')->where('status','active')->get();
-        return view('admin.withdraw_requests.edit',compact(['withdraw_requests','users']));
+        return view('admin.withdraw_requests.edit',compact(['withdraw_request','users']));
     }
     public function update(Request $request, string $id)
     {
         App::setLocale(session('locale'));
         $withdraw_requests = WithdrawRequest::find($id);
-        $request->validate([
-            'user_id' => 'required',
-            'business_name' => 'required',
-            'business_type' => 'required',
-            'mobile_number' => 'required',
-            'business_email' => 'required|email',
-            'domain_name' => 'required|unique:withdraw_requests,id,'.$id,
-            'website_url' => 'required|unique:withdraw_requests,id,'.$id,
-            'server_ip' => 'required',
-            'charge' => 'required',
-            'business_logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
 
-        $imagePath = $withdraw_requests->photo??null;
-        if($request->file('business_logo')){
-            $imagePath = $request->file('business_logo')->withdraw_requests('business-logo');
-            $old_image_path = "uploads/".$request->business_logo_old;
-            if (file_exists($old_image_path)) {
-                @unlink($old_image_path);
-            }
-        }
-        $withdraw_requests->user_id = $request->user_id;
-        $withdraw_requests->balance = $request->balance;
-        $withdraw_requests->business_name = $request->business_name;
-        $withdraw_requests->business_type = $request->business_type;
-        $withdraw_requests->mobile_number = $request->mobile_number;
-        $withdraw_requests->business_email = $request->business_email;
-        $withdraw_requests->domain_name = $request->domain_name;
-        $withdraw_requests->website_url = $request->website_url;
-        $withdraw_requests->server_ip = $request->server_ip;
-        $withdraw_requests->charge = $request->charge;
-        $withdraw_requests->status = $request->status;
-        $withdraw_requests->business_logo = $imagePath;
         $withdraw_requests->update();
         toastr()->success($withdraw_requests->name.__('global.updated_success'),__('global.admin').__('global.updated'));
         return redirect()->route('admin.withdraw-requests.index');

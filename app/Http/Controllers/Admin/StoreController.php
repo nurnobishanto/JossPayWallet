@@ -29,10 +29,9 @@ class StoreController extends Controller
         $users = User::orderBy('id','DESC')->where('status','active')->get();
         return view('admin.stores.create',compact('users'));
     }
-
-
     public function store(Request $request)
     {
+
         App::setLocale(session('locale'));
         $request->validate([
             'user_id' => 'required',
@@ -40,12 +39,26 @@ class StoreController extends Controller
             'business_type' => 'required',
             'mobile_number' => 'required',
             'business_email' => 'required|email',
-            'domain_name' => 'required|unique:stores',
-            'website_url' => 'required|unique:stores',
-            'server_ip' => 'required',
             'charge' => 'required',
+            'status' => 'required',
             'business_logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'add1' => 'required',
+            'add2' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
         ]);
+        if ($request->domain_name){
+            $request->validate([
+                'domain_name' => 'unique:stores',
+                'server_ip' => 'required',
+            ]);
+        }
+        if ($request->website_url){
+            $request->validate([
+                'website_url' => 'unique:stores',
+            ]);
+        }
         $imagePath = null;
         if($request->file('business_logo')){
             $imagePath = $request->file('business_logo')->store('business-logo');
@@ -60,9 +73,16 @@ class StoreController extends Controller
             'website_url' =>$request->website_url,
             'server_ip' =>$request->server_ip,
             'charge' =>$request->charge,
-            'status' =>$request->status,
             'business_logo' =>$imagePath,
+            'add1' =>$request->add1,
+            'add2' =>$request->add2,
+            'city' =>$request->city,
+            'state' =>$request->state,
+            'country' =>$request->country,
         ]);
+
+        $store->status = $request->status;
+        $store->update();
         toastr()->success($store->name.__('global.created_success'),__('global.admin').__('global.created'));
 
         return redirect()->route('admin.stores.index');
@@ -90,13 +110,25 @@ class StoreController extends Controller
             'business_type' => 'required',
             'mobile_number' => 'required',
             'business_email' => 'required|email',
-            'domain_name' => 'required|unique:stores,id,'.$id,
-            'website_url' => 'required|unique:stores,id,'.$id,
-            'server_ip' => 'required',
             'charge' => 'required',
             'business_logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'add1' => 'required',
+            'add2' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
         ]);
-
+        if ($request->domain_name){
+            $request->validate([
+                'domain_name' => 'required|unique:stores,id,'.$id,
+                'server_ip' => 'required',
+            ]);
+        }
+        if ($request->website_url){
+            $request->validate([
+                'website_url' => 'required|unique:stores,id,'.$id,
+            ]);
+        }
         $imagePath = $store->business_logo??null;
         if($request->file('business_logo')){
             $imagePath = $request->file('business_logo')->store('business-logo');
@@ -117,6 +149,11 @@ class StoreController extends Controller
         $store->charge = $request->charge;
         $store->status = $request->status;
         $store->business_logo = $imagePath;
+        $store->add1 = $request->add1;
+        $store->add2 = $request->add2;
+        $store->city = $request->city;
+        $store->state = $request->state;
+        $store->country = $request->country;
         $store->update();
         toastr()->success($store->name.__('global.updated_success'),__('global.admin').__('global.updated'));
         return redirect()->route('admin.stores.index');

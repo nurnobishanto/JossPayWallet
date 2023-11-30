@@ -14,16 +14,18 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 |
 */
 
+
 Route::get('/wp-pay',[\App\Http\Controllers\PaymentController::class,'request_wp']);
 Route::get('/payment/{id}',[\App\Http\Controllers\PaymentController::class,'transaction_pay']);
 
-Route::post('/request',[\App\Http\Controllers\PaymentController::class,'request']);
+Route::post('/request',[\App\Http\Controllers\PaymentController::class,'request'])->name('payment_request');
 Route::post('/success',[\App\Http\Controllers\PaymentController::class,'success'])->name('success');
 Route::post('/fail',[\App\Http\Controllers\PaymentController::class,'fail'])->name('fail');
 Route::post('/cancel',[\App\Http\Controllers\PaymentController::class,'cancel'])->name('cancel');
 
 Route::get('qr/{store}/default-payment',[\App\Http\Controllers\PLController::class,'default_payment_link_qr_code'])->name('store.default_payment_link_qr_code');
 Route::get('{store}/default-payment',[\App\Http\Controllers\PLController::class,'default_payment_link'])->name('store.default_payment_link');
+Route::post('payment-status',[\App\Http\Controllers\PLController::class,'payment_status'])->name('payment_status');
 Route::get('/qr', function () {
     $qrCodes = [];
     $qrCodes['simple'] = QrCode::size(120)->generate('https://josspaywallet.com/');

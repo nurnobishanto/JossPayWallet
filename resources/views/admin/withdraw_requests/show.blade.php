@@ -1,17 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', __('global.view_store'))
+@section('title', __('global.view_withdraw_request'))
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>{{__('global.view_store')}} - {{$store->business_name}}</h1>
+            <h1>{{__('global.view_withdraw_request')}} - {{$withdraw_request->store->business_name}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('global.home')}}</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.stores.index')}}">{{__('global.stores')}}</a></li>
-                <li class="breadcrumb-item active">{{__('global.view_store')}}</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.withdraw-requests.index')}}">{{__('global.withdraw_requests')}}</a></li>
+                <li class="breadcrumb-item active">{{__('global.view_withdraw_request')}}</li>
             </ol>
 
         </div>
@@ -23,124 +23,36 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                        @if (count($errors) > 0)
-                            <div class = "alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="store_id">{{ __('global.store_id')}}</label>
-                                        <input id="store_id"  class="form-control" value="{{$store->store_id}}" placeholder="{{ __('global.store_id')}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="api_key">{{ __('global.api_key')}}</label>
-                                        <input id="api_key"  class="form-control" value="{{$store->api_key}}" placeholder="{{ __('global.api_key')}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="balance">{{ __('global.balance')}}</label>
-                                        <input id="balance"  class="form-control" value="{{$store->balance}}" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="business_name">{{ __('global.business_name')}}</label>
-                                        <input id="business_name" name="business_name" class="form-control" value="{{$store->business_name}}" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="user_id">{{__('global.select_user')}} <span class="text-danger"> *</span></label>
-                                        <input id="user_id" name="business_name" class="form-control" value="{{$store->user->name}}" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="business_name">{{ __('global.business_name')}}</label>
-                                        <input id="business_name" name="business_name" class="form-control" value="{{$store->business_name}}" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="business_type">{{ __('global.business_type')}}</label>
-                                        <input id="business_type" name="business_type" class="form-control" value="{{$store->business_type}}" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mobile_number">{{ __('global.mobile_number')}}</label>
-                                        <input id="mobile_number" name="mobile_number" value="{{$store->mobile_number}}" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="business_email">{{ __('global.business_email')}}</label>
-                                        <input id="business_email" name="business_email" value="{{$store->business_email}}" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="domain_name">{{ __('global.domain_name')}}</label>
-                                        <input id="domain_name" name="domain_name" value="{{$store->domain_name}}" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="website_url">{{ __('global.website_url')}}</label>
-                                        <input id="website_url" name="website_url" value="{{$store->website_url}}" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="server_ip">{{ __('global.server_ip')}}</label>
-                                        <input id="server_ip" name="server_ip" value="{{$store->server_ip}}" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="charge">{{ __('global.charge')}}</label>
-                                        <input id="charge" name="charge" value="{{$store->charge}}" class="form-control" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="status">{{__('global.select_status')}}</label>
-                                        <select name="status" class="form-control" id="status" disabled>
-                                            <option value="active" @if($store->status == 'active') selected @endif>{{__('global.active')}}</option>
-                                            <option value="deactivate" @if($store->status == 'deactivate') selected @endif>{{__('global.deactivate')}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="{{asset('uploads/'.$store->business_logo)}}" alt="Selected Image" id="selected-image" style="max-height: 150px">
-                                </div>
-
-                            </div>
-
-
-
-                        <form action="{{ route('admin.stores.destroy', $store->id) }}" method="POST">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr><th width="30%">Name</th><th>Value</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr><th>User</th><td>{{$withdraw_request->user->name}}</td></tr>
+                            <tr><th>Store</th><td>{{$withdraw_request->store->business_name }} - {{$withdraw_request->store->store_id }}</td></tr>
+                            <tr><th>Account</th><td>{{$withdraw_request->withdraw_account->bank_name}} - {{$withdraw_request->withdraw_account->account_name}}</td></tr>
+                            <tr><th>Amount</th><td>{{$withdraw_request->amount}}</td></tr>
+                            <tr><th>Tran ID</th><td>{{$withdraw_request->tran_id}}</td></tr>
+                            <tr><th>Status</th><td>{{$withdraw_request->status}}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        <form action="{{ route('admin.withdraw-requests.destroy', $withdraw_request->id) }}" method="POST">
                             @method('DELETE')
                             @csrf
-                            <a href="{{route('admin.stores.index')}}" class="btn btn-success" >Go Back</a>
-                            @can('store_update')
-                                <a href="{{route('admin.stores.edit',['store'=>$store->id])}}" class="btn btn-warning "><i class="fa fa-pen"></i> Edit</a>
+                            <a href="{{route('admin.withdraw-requests.index')}}" class="btn btn-success" >Go Back</a>
+                            @can('withdraw_request_update')
+                                <a href="{{route('admin.withdraw-requests.edit',['withdraw_request'=>$withdraw_request->id])}}" class="btn btn-warning "><i class="fa fa-pen"></i> Edit</a>
                             @endcan
-                            @can('store_delete')
+                            @can('withdraw_request_delete')
                                 <button onclick="isDelete(this)" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
                             @endcan
+                            @if($withdraw_request->status != 'success')
+                                <a href="{{route('admin.withdraw-requests.success',['withdraw_request'=>$withdraw_request->id])}}" class="btn btn-primary">Approve</a>
+                                <a href="{{route('admin.withdraw-requests.reject',['withdraw_request'=>$withdraw_request->id])}}" class="btn btn-danger">Reject</a>
+                            @endif
                         </form>
-
                 </div>
             </div>
         </div>

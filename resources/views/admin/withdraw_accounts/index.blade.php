@@ -52,7 +52,7 @@
                                     <td>{{$withdraw_account->account_name}}</td>
                                     <td>{{$withdraw_account->account_no}}</td>
                                     <td>{{__('global.'.$withdraw_account->account_type)}}</td>
-                                    <td>{{__('global.'.$withdraw_account->status)}}
+                                    <td><span class="badge @if($withdraw_account->status == 'active') badge-success @elseif($withdraw_account->status == 'rejected') badge-danger @else badge-warning @endif">{{__('global.'.$withdraw_account->status)}}</span>
                                     </td>
                                     <td class="text-center">
                                         <form action="{{ route('admin.withdraw-accounts.destroy', $withdraw_account->id) }}" method="POST">

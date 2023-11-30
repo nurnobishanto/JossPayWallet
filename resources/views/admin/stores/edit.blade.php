@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="business_name">{{ __('global.business_name')}}</label>
+                                    <label for="business_name">{{ __('global.business_name')}}<span class="text-danger"> *</span></label>
                                     <input id="business_name" name="business_name" class="form-control" value="{{$store->business_name}}" placeholder="{{ __('global.enter_business_name')}}">
                                 </div>
                             </div>
@@ -85,19 +85,19 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="business_type">{{ __('global.business_type')}}</label>
+                                    <label for="business_type">{{ __('global.business_type')}}<span class="text-danger"> *</span></label>
                                     <input id="business_type" name="business_type" class="form-control" value="{{$store->business_type}}" placeholder="{{ __('global.enter_business_type')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="mobile_number">{{ __('global.mobile_number')}}</label>
+                                    <label for="mobile_number">{{ __('global.mobile_number')}}<span class="text-danger"> *</span></label>
                                     <input id="mobile_number" name="mobile_number" value="{{$store->mobile_number}}" class="form-control" placeholder="{{ __('global.enter_mobile_number')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="business_email">{{ __('global.business_email')}}</label>
+                                    <label for="business_email">{{ __('global.business_email')}}<span class="text-danger"> *</span></label>
                                     <input id="business_email" name="business_email" value="{{$store->business_email}}" class="form-control" placeholder="{{ __('global.enter_business_email')}}">
                                 </div>
                             </div>
@@ -121,17 +121,46 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="charge">{{ __('global.charge')}}</label>
+                                    <label for="charge">{{ __('global.charge')}}<span class="text-danger"> *</span></label>
                                     <input id="charge" name="charge" value="{{$store->charge}}" class="form-control" placeholder="{{ __('global.enter_charge')}}">
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="status">{{__('global.select_status')}}</label>
+                                    <label for="add1">{{ __('global.add1')}}<span class="text-danger"> *</span></label>
+                                    <input id="add1" name="add1" value="{{$store->add1}}" type="text" class="form-control" placeholder="{{ __('global.enter_add1')}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="add2">{{ __('global.add2')}}<span class="text-danger"> *</span></label>
+                                    <input id="add2" name="add2" value="{{$store->add2}}" type="text" class="form-control" placeholder="{{ __('global.enter_add2')}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="city">{{ __('global.city')}}<span class="text-danger"> *</span></label>
+                                    <input id="city" name="city" value="{{$store->city}}" type="text" class="form-control" placeholder="{{ __('global.enter_city')}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="state">{{ __('global.state')}}<span class="text-danger"> *</span></label>
+                                    <input id="state" name="state" value="{{$store->state}}" type="text" class="form-control" placeholder="{{ __('global.enter_state')}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="country">{{ __('global.country')}}<span class="text-danger"> *</span></label>
+                                    <input id="country" name="country"  type="text" value="{{$store->country}}" class="form-control" placeholder="{{ __('global.enter_country')}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">{{__('global.select_status')}}<span class="text-danger"> *</span></label>
                                     <select name="status" class="form-control" id="status">
                                         <option value="active" @if($store->status == 'active') selected @endif>{{__('global.active')}}</option>
-                                        <option value="deactivate" @if($store->status == 'deactivate') selected @endif>{{__('global.deactivate')}}</option>
+                                        <option value="deactivated" @if($store->status == 'deactivated') selected @endif>{{__('global.deactivated')}}</option>
                                     </select>
                                 </div>
                             </div>

@@ -50,4 +50,6 @@ Route::resource('/withdraw-accounts',WithdrawAccountController::class)->middlewa
 Route::get('/withdraw-requests/trashed',[WithdrawRequestController::class,'trashed_list'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.trashed');
 Route::get('/withdraw-requests/trashed/{withdraw_request}/restore',[WithdrawRequestController::class,'restore'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.restore');
 Route::get('/withdraw-requests/trashed/{withdraw_request}/delete',[WithdrawRequestController::class,'force_delete'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.force_delete');
+Route::get('/withdraw-requests/trashed/{withdraw_request}/success',[WithdrawRequestController::class,'success'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.success');
+Route::get('/withdraw-requests/trashed/{withdraw_request}/reject',[WithdrawRequestController::class,'reject'])->middleware('permission:withdraw_request_manage')->name('withdraw-requests.reject');
 Route::resource('/withdraw-requests',WithdrawRequestController::class)->middleware('permission:withdraw_request_manage');

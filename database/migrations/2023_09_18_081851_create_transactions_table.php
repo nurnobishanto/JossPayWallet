@@ -29,9 +29,10 @@ return new class extends Migration
             $table->string('card_holder')->nullable();
             $table->string('pay_status')->nullable();
             $table->string('card_type')->nullable();
-            $table->string('store_amount')->nullable();
+            $table->double('store_amount')->nullable();
+            $table->double('customer_store_amount')->nullable();
+            $table->double('payment_charge')->nullable();
             $table->string('bank_txn')->nullable();
-
             $table->string('currency');
             $table->string('desc');
             $table->string('cus_name');

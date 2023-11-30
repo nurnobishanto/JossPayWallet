@@ -33,9 +33,11 @@
                         <table id="storesList" class="table  dataTable table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th width="18%">{{__('global.user')}}</th>
                                 <th width="18%">{{__('global.business_logo')}}</th>
                                 <th width="25%">{{__('global.business_name')}}</th>
                                 <th width="20%">{{__('global.mobile_number')}}</th>
+                                <th width="10%">{{__('global.balance')}}</th>
                                 <th width="7%">{{__('global.status')}}</th>
                                 <th width="15%">{{__('global.action')}}</th>
                             </tr>
@@ -43,16 +45,16 @@
                             <tbody>
                             @foreach($stores as $store)
                                 <tr>
-
+                                    <td>{{$store->user->name??'Deleted'}}</td>
                                     <td>
                                         <img class="rounded border" width="100px" src="{{asset('uploads/'.$store->business_logo)}}" alt="{{$store->business_name}}">
                                     </td>
                                     <td>{{$store->business_name}}</td>
                                     <td>{{$store->mobile_number}}</td>
+                                    <td>{{$store->balance}}</td>
                                     <td>
-                                        @if($store->status=='active') <span class="badge-success badge">Active</span>
-                                        @else <span class="badge-danger badge">Deactivate</span>
-                                        @endif
+                                        <span class="text-capitalize badge @if($store->status == 'active') badge-success @elseif($store->status == 'deactivated') badge-danger @else badge-warning @endif">{{$store->status}}</span>
+
                                     </td>
                                     <td class="text-center">
                                         <form action="{{ route('admin.stores.destroy', $store->id) }}" method="POST">
@@ -76,9 +78,11 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                <th>{{__('global.user')}}</th>
                                 <th>{{__('global.business_logo')}}</th>
                                 <th>{{__('global.business_name')}}</th>
                                 <th>{{__('global.mobile_number')}}</th>
+                                <th>{{__('global.balance')}}</th>
                                 <th>{{__('global.status')}}</th>
                                 <th>{{__('global.action')}}</th>
                             </tr>

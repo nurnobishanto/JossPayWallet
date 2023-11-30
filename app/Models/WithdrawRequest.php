@@ -10,7 +10,7 @@ class WithdrawRequest extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'store_id','withdraw_account','tran_id', 'amount', 'requested_at', 'status'];
+    protected $fillable = ['user_id', 'store_id','withdraw_account_id','tran_id', 'amount', 'requested_at', 'status'];
 
     public function user()
     {
@@ -21,4 +21,9 @@ class WithdrawRequest extends Model
     {
         return $this->belongsTo(Store::class);
     }
+    public function withdraw_account()
+    {
+        return $this->belongsTo(WithdrawAccount::class);
+    }
+
 }

@@ -78,7 +78,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="status">{{__('global.select_status')}}</label>
-                                        <select name="status" class="form-control" id="status">
+                                        <select name="status" class="form-control" id="status" disabled>
                                             <option value="pending" @if($withdraw_account->status == 'pending') selected @endif>{{__('global.pending')}}</option>
                                             <option value="active" @if($withdraw_account->status == 'active') selected @endif>{{__('global.active')}}</option>
                                             <option value="rejected" @if($withdraw_account->status == 'rejected') selected @endif>{{__('global.rejected')}}</option>

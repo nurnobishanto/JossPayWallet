@@ -38,11 +38,40 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="user_id">{{__('global.select_user')}} <span class="text-danger"> *</span></label>
-                                    <select name="user_id" class="select2 form-control" id="withdraw_request_id">
+                                    <select name="user_id" class="select2 form-control" id="user_id">
+                                        <option value="">{{__('global.select_user')}}</option>
                                         @foreach($users as $user)
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="store_id">{{__('global.select_store')}} <span class="text-danger"> *</span></label>
+                                    <select name="store_id" class="select2 form-control" id="store_id">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="withdraw_account_id">{{__('global.select_withdraw_account')}} <span class="text-danger"> *</span></label>
+                                    <select name="withdraw_account_id" class="select2 form-control" id="withdraw_account_id">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tran_id">{{__('global.tran_id')}} <span class="text-danger"> *</span></label>
+                                    <input name="tran_id" id="tran_id" value="{{uniqid()}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="amount">{{__('global.amount')}} <span class="text-danger"> *</span></label>
+                                    <input name="amount" id="amount" value="" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -79,7 +108,69 @@
             $('.select2').select2({
                 theme:'classic'
             });
+            $('#user_id').change(function () {
+                updateStores($(this).val());
+                updateWithdrawAccounts($(this).val());
+            });
+            $('#store_id').change(function () {
+                updateAmount($(this).val());
+            });
+
         });
+        function updateStores(user_id) {
+            $.ajax({
+                url: '/ajax/get-stores/' + user_id,
+                type: 'GET',
+                success: function (data) {
+                    var storeSelect = $('#store_id');
+                    storeSelect.empty();
+
+                    $.each(data, function (index, store) {
+                        storeSelect.append('<option value="' + store.id + '">' + store.business_name + '</option>');
+                    });
+
+                    // Trigger change event to update withdraw accounts
+                    storeSelect.change();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function updateWithdrawAccounts(user_id) {
+            $.ajax({
+                url: '/ajax/get-withdraw-accounts/' + user_id,
+                type: 'GET',
+                success: function (data) {
+                    var withdrawAccountSelect = $('#withdraw_account_id');
+                    withdrawAccountSelect.empty();
+                    $.each(data, function (index, account) {
+                        withdrawAccountSelect.append('<option value="' + account.id + '">' + account.bank_name +' '+ account.account_name +'</option>');
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function updateAmount(store_id) {
+            $.ajax({
+                url: '/ajax/get-store-balance/' + store_id,
+                type: 'GET',
+                success: function (data) {
+                    // Assuming data contains the balance field
+                    var storeBalance = data.balance;
+                    var minAmount = 0; // Replace with your actual min amount
+                    var maxAmount = storeBalance; // Set maximum as the store balance
+                    $('#amount').val(storeBalance);
+                    $('#amount').attr('min', minAmount);
+                    $('#amount').attr('max', maxAmount);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
         document.addEventListener('DOMContentLoaded', function () {
             const imageForm = document.getElementById('admin-form');
             const selectedImage = document.getElementById('selected-image');

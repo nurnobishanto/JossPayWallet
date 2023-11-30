@@ -111,13 +111,42 @@
                                         <input id="charge" name="charge" value="{{$store->charge}}" class="form-control" disabled>
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="add1">{{ __('global.add1')}}<span class="text-danger"> *</span></label>
+                                        <input disabled id="add1" name="add1" value="{{$store->add1}}" type="text" class="form-control" placeholder="{{ __('global.enter_add1')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="add2">{{ __('global.add2')}}<span class="text-danger"> *</span></label>
+                                        <input disabled id="add2" name="add2" value="{{$store->add2}}" type="text" class="form-control" placeholder="{{ __('global.enter_add2')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="city">{{ __('global.city')}}<span class="text-danger"> *</span></label>
+                                        <input  disabled id="city" name="city" value="{{$store->city}}" type="text" class="form-control" placeholder="{{ __('global.enter_city')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="state">{{ __('global.state')}}<span class="text-danger"> *</span></label>
+                                        <input disabled id="state" name="state" value="{{$store->state}}" type="text" class="form-control" placeholder="{{ __('global.enter_state')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="country">{{ __('global.country')}}<span class="text-danger"> *</span></label>
+                                        <input disabled id="country" name="country"  type="text" value="{{$store->country}}" class="form-control" placeholder="{{ __('global.enter_country')}}">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="status">{{__('global.select_status')}}</label>
                                         <select name="status" class="form-control" id="status" disabled>
                                             <option value="active" @if($store->status == 'active') selected @endif>{{__('global.active')}}</option>
-                                            <option value="deactivate" @if($store->status == 'deactivate') selected @endif>{{__('global.deactivate')}}</option>
+                                            <option value="deactivated" @if($store->status == 'deactivated') selected @endif>{{__('global.deactivated')}}</option>
                                         </select>
                                     </div>
                                 </div>

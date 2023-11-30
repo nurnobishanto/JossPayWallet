@@ -67,11 +67,14 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('store.business_name')->sortable(),
-                Tables\Columns\TextColumn::make('tran_id')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('store.business_name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('tran_id')->label('Trx ID')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('bank_txn')->label('Bank TXN ')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('amount')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('store_amount')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('desc')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cus_name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('cus_phone')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('status')->sortable()
             ])
             ->filters([

@@ -35,7 +35,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/adminauth.php'));
 
             Route::middleware('web')
-
                 ->group(base_path('routes/command.php'));
 
             Route::middleware('api')
@@ -44,6 +43,11 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::middleware('web')
+                ->prefix('ajax')
+                ->as('ajax.')
+                ->group(base_path('routes/ajax.php'));
 
             Route::middleware( ['admin', 'web'])
                 ->as('admin.')

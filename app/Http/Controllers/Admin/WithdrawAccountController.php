@@ -37,32 +37,24 @@ class WithdrawAccountController extends Controller
         App::setLocale(session('locale'));
         $account->validate([
             'user_id' => 'required',
-            'business_name' => 'required',
-            'business_type' => 'required',
-            'mobile_number' => 'required',
-            'business_email' => 'required|email',
-            'domain_name' => 'required|unique:withdraw_accounts',
-            'website_url' => 'required|unique:withdraw_accounts',
-            'server_ip' => 'required',
-            'charge' => 'required',
-            'business_logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bank_name' => 'required',
+            'account_name' => 'required',
+            'account_no' => 'required',
+            'account_type' => 'required',
+            'branch_name' => 'required',
+            'routing_no' => 'required',
+            'status' => 'required',
         ]);
-        $imagePath = null;
-        if($account->file('business_logo')){
-            $imagePath = $account->file('business_logo')->withdraw_accounts('business-logo');
-        }
+
         $withdraw_account = WithdrawAccount::create([
             'user_id' =>$account->user_id,
-            'business_name' =>$account->business_name,
-            'business_type' =>$account->business_type,
-            'mobile_number' =>$account->mobile_number,
-            'business_email' =>$account->business_email,
-            'domain_name' =>$account->domain_name,
-            'website_url' =>$account->website_url,
-            'server_ip' =>$account->server_ip,
-            'charge' =>$account->charge,
+            'bank_name' =>$account->bank_name,
+            'account_name' =>$account->account_name,
+            'account_no' =>$account->account_no,
+            'account_type' =>$account->account_type,
+            'branch_name' =>$account->branch_name,
+            'routing_no' =>$account->routing_no,
             'status' =>$account->status,
-            'business_logo' =>$imagePath,
         ]);
         toastr()->success($withdraw_account->name.__('global.created_success'),__('global.admin').__('global.created'));
 

@@ -40,6 +40,11 @@ class StoreResource extends Resource
                 Forms\Components\TextInput::make('domain_name')->required(),
                 Forms\Components\TextInput::make('website_url')->required()->url(),
                 Forms\Components\TextInput::make('server_ip')->required(),
+                Forms\Components\TextInput::make('add1')->required(),
+                Forms\Components\TextInput::make('add2')->required(),
+                Forms\Components\TextInput::make('city')->required(),
+                Forms\Components\TextInput::make('state')->required(),
+                Forms\Components\TextInput::make('country')->required(),
 
             ]);
     }

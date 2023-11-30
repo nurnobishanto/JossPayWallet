@@ -21,7 +21,7 @@ Route::get('/payment/{id}',[\App\Http\Controllers\PaymentController::class,'tran
 Route::post('/request',[\App\Http\Controllers\PaymentController::class,'request'])->name('payment_request');
 Route::post('/success',[\App\Http\Controllers\PaymentController::class,'success'])->name('success');
 Route::post('/fail',[\App\Http\Controllers\PaymentController::class,'fail'])->name('fail');
-Route::post('/cancel',[\App\Http\Controllers\PaymentController::class,'cancel'])->name('cancel');
+Route::get('/cancel',[\App\Http\Controllers\PaymentController::class,'cancel'])->name('cancel');
 
 Route::get('qr/{store}/default-payment',[\App\Http\Controllers\PLController::class,'default_payment_link_qr_code'])->name('store.default_payment_link_qr_code');
 Route::get('{store}/default-payment',[\App\Http\Controllers\PLController::class,'default_payment_link'])->name('store.default_payment_link');

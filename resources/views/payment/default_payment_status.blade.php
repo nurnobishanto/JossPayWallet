@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-md-6">
                         <ul class="list-group">
-                            <li class="list-group-item text-center"><img src="{{asset('uploads/'.$store->business_logo)}}" class="img-thumbnail" style="max-height: 150px"></li>
+                            <li class="list-group-item text-center"><img src="{{asset('uploads/'.$store->business_logo)}}" class="img-thumbnail" style="max-height: 90px"></li>
                             <li class="list-group-item"><strong>Store Name: </strong>{{$store->business_name}}</li>
                             <li class="list-group-item"><strong>Store ID: </strong>{{$store->store_id}}</li>
                             <li class="list-group-item"><strong>Store Person: </strong> {{$store->user->name}}</li>

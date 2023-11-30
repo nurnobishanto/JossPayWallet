@@ -440,6 +440,7 @@ class PaymentController extends Controller
     }
     public function cancel(Request $request){
         echo 'Payment is canceled, please wait for the order to complete. Do not close/refresh your browser. Redirecting to...';
+        return $request;
         $transaction  = Transaction::where('tran_id',$request->mer_txnid)->first();
         $transaction->status = 'canceled';
         $transaction->update();

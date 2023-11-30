@@ -18,7 +18,7 @@
                     <div class="col-12 text-center">
 
                         @if($qrCodeImage)
-                            <img src="data:image/png;base64, {!!  base64_encode($qrCodeImage) !!}"/>
+                            <img class="img-fluid img-thumbnail" src="data:image/png;base64, {!!  base64_encode($qrCodeImage) !!}"/>
                         @else
                             {!! $qrCode !!}
                         @endif

@@ -21,7 +21,7 @@ class PLController extends Controller
 
         if ($myStore->business_logo){
             $image = '/public/uploads/'.$myStore->business_logo;
-            $qrCodes['qrCodeImage'] = QrCode::size(350)->format('png')->merge($image, .4)->generate($link);
+            $qrCodes['qrCodeImage'] = QrCode::size(350)->format('png')->merge($image, .2)->generate($link);
 
         }else{
             $qrCodes['qrCode'] = QrCode::size(350)->generate($link);

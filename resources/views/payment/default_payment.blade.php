@@ -15,7 +15,7 @@
                         <div class="col-12">
                             @if($store->business_logo)
                             <p class="text-center">
-                                <img src="{{asset('uploads/'.$store->business_logo)}}" class="img-thumbnail" style="max-height: 300px">
+                                <img src="{{asset('uploads/'.$store->business_logo)}}" class="img-thumbnail" style="max-height: 150px">
                             </p>
                             @endif
 

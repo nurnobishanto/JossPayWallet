@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Store;
 use App\Models\WithdrawAccount;
 use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -28,15 +29,19 @@ Route::get('{store}/default-payment',[\App\Http\Controllers\PLController::class,
 Route::post('payment-status',[\App\Http\Controllers\PLController::class,'payment_status'])->name('payment_status');
 Route::get('/qr', function () {
     $qrCodes = [];
-    $qrCodes['simple'] = QrCode::size(120)->generate('https://josspaywallet.com/');
-    $qrCodes['changeColor'] = QrCode::size(120)->color(255, 0, 0)->generate('https://josspaywallet.com/');
-    $qrCodes['changeBgColor'] = QrCode::size(120)->backgroundColor(255, 0, 0)->generate('https://josspaywallet.com/');
+    $myStore = Store::find(2);
+    $link = route('store.default_payment_link',['store' => $myStore->store_id]);
+    $qrCodes['qrCodeImage'] = null;
+    $qrCodes['qrCode'] = null;
+    $qrCodes['title'] = 'Default Payment Link';
+    $qrCodes['store'] = $myStore;
+    $qrCodes['link'] = $link;
+    if ($myStore->business_logo){
+        $image = '/public/uploads/'.$myStore->business_logo;
+        $qrCodes['qrCodeImage'] = QrCode::size(350)->format('png')->merge($image, .2)->generate($link);
 
-    $qrCodes['styleDot'] = QrCode::size(120)->style('dot')->generate('https://josspaywallet.com/');
-    $qrCodes['styleSquare'] = QrCode::size(120)->style('square')->generate('https://josspaywallet.com/');
-    $qrCodes['styleRound'] = QrCode::size(120)->style('round')->generate('https://josspaywallet.com/');
-
-    $qrCodes['withImage'] = QrCode::size(200)->format('png')->merge('/public/vendor/adminlte/dist/img/AdminLTELogo.png', .4)->generate('https://josspaywallet.com/');
-
+    }else{
+        $qrCodes['qrCode'] = QrCode::size(350)->generate($link);
+    }
     return view('qr', $qrCodes);
 });

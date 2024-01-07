@@ -11,7 +11,14 @@ use Illuminate\Support\Facades\DB;
 class PaymentController extends Controller
 {
     public function request(Request $request){
-        echo "Please Wait...Redirecting soon....";
+        $title = "Redirecting..";
+        $spinner = true;
+        $h3 = "Don't refresh or reload this page.";
+        $h3Class = "text-danger";
+        $p = '<i class="fas fa-info-circle"> </i> Redirecting soon. Please wait...';
+        $pClass = "text-info";
+        $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+        echo $html;
 
         $request->validate([
             'store_id' => 'required',
@@ -83,7 +90,7 @@ class PaymentController extends Controller
             if($transaction->status != 'success'){
                 $fields = array(
                     'store_id' => env('AMAR_PAY_STORE_ID'), //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
-                    'amount' => $transaction->amount, //transaction amount
+                    'amount' => $transaction->amount , //transaction amount
                     'payment_type' => 'VISA', //no need to change
                     'currency' => 'BDT',  //currenct will be USD/BDT
                     'tran_id' => $transaction->tran_id, //transaction id must be unique from your end
@@ -126,23 +133,43 @@ class PaymentController extends Controller
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 $url_forward = str_replace('"', '', stripslashes(curl_exec($ch)));
                 curl_close($ch);
-
-
                 $this->redirect_to_merchant($url_forward);
             }
             else{
-                echo 'Already success';
+
+                $title = "Already success";
+                $spinner = false;
+                $h3 = "Your payment already success";
+                $h3Class = "text-success";
+                $p = '';
+                $pClass = "text-info";
+                $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+                return $html;
+
             }
         }
         else{
-            echo 'Invalid Store and API KEY Or Store Status is pending';
+            $title = "Invalid Store and API KEY Or Store Status is pending";
+            $spinner = false;
+            $h3 = "Invalid !";
+            $h3Class = "text-danger";
+            $p = 'Invalid Store and API KEY Or Store Status is pending';
+            $pClass = "text-danger";
+            $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+            return $html;
 
         }
 
     }
     public function request_wp(Request $request){
-        echo "Please Wait... Redirecting soon....";
-
+        $title = "Redirecting..";
+        $spinner = true;
+        $h3 = "Don't refresh or reload this page.";
+        $h3Class = "text-danger";
+        $p = '<i class="fas fa-info-circle"> </i> Redirecting soon. Please wait...';
+        $pClass = "text-info";
+        $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+        echo $html;
          $validate = $request->validate([
             'store_id' => 'required',
             'api_key' => 'required',
@@ -171,6 +198,7 @@ class PaymentController extends Controller
                  $user = $store->user;
                  $transaction = Transaction::where('tran_id',$request->tran_id)->first();
                  if(!$transaction){
+
                      $transaction = DB::table('transactions')->insert([
                          'user_id' => $user->id,
                          'store_id' => $store->id,
@@ -209,25 +237,46 @@ class PaymentController extends Controller
                  return redirect(env('app_url').'/payment/'.$request->tran_id);
              }
              else{
-                 echo 'Invalid Store and API KEY Or Store Status is pending';
-                 exit;
+                 $title = "Invalid Store and API KEY Or Store Status is pending";
+                 $spinner = false;
+                 $h3 = "Invalid !";
+                 $h3Class = "text-danger";
+                 $p = 'Invalid Store and API KEY Or Store Status is pending';
+                 $pClass = "text-danger";
+                 $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+                 return $html;
              }
 
          }else{
              echo 'Something went wrong!';
-             exit;
+             $title = "Something went wrong!";
+             $spinner = false;
+             $h3 = "Something went wrong! !";
+             $h3Class = "text-danger";
+             $p = '';
+             $pClass = "text-danger";
+             $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+             return $html;
          }
 
     }
     public function transaction_pay($id){
-        echo 'Wait please..';
+        $title = "Redirecting..";
+        $spinner = true;
+        $h3 = "Don't refresh or reload this page.";
+        $h3Class = "text-danger";
+        $p = '<i class="fas fa-info-circle"> </i> Redirecting soon. Please wait...';
+        $pClass = "text-info";
+        $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+        echo $html;
         $transaction = Transaction::where('tran_id',$id)->first();
         $url = env('AMAR_PAY_REQUEST_URL');
         if($transaction->status == 'pending'){
-
+            $originalAmount = $transaction->amount;
+            $extraAmount = $originalAmount * 0.03;
             $fields = array(
                 'store_id' => env('AMAR_PAY_STORE_ID'), //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
-                'amount' => $transaction->amount, //transaction amount
+                'amount' => $transaction->amount + $extraAmount, //transaction amount
                 'payment_type' => 'VISA', //no need to change
                 'currency' => 'BDT',  //currenct will be USD/BDT
                 'tran_id' => $transaction->tran_id, //transaction id must be unique from your end
@@ -273,13 +322,17 @@ class PaymentController extends Controller
             $this->redirect_to_merchant($url_forward);
         }
         else{
-            echo 'Already success';
+            $title = "Already success";
+            $spinner = false;
+            $h3 = "Your payment already success";
+            $h3Class = "text-success";
+            $p = '';
+            $pClass = "text-info";
+            $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+            return $html;
         }
     }
     function redirect_to_merchant($url) {
-
-
-
         ?>
         <html xmlns="http://www.w3.org/1999/xhtml">
         <head><script type="text/javascript">
@@ -297,17 +350,25 @@ class PaymentController extends Controller
         exit;
     }
     public function success(Request $request){
-        echo 'Payment is successful, please wait for the order to complete. Do not close/refresh your browser. Redirecting to...';
+        $title = "Payment is successful";
+        $spinner = true;
+        $h3 = "Payment is successful";
+        $h3Class = "text-success";
+        $p = 'Please wait for the order to complete. Do not close/refresh your browser. Redirecting...';
+        $pClass = "text-info";
+        $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+        echo $html;
         $transaction  = Transaction::where('tran_id',$request->mer_txnid)->first();
         if($transaction){
             $amountOriginal = $request->amount_original;
-            $chargePercentage = $transaction->store->charge;
-
+            //$chargePercentage = $transaction->store->charge;
+            $chargePercentage = 3;
             $paymentCharge = ($amountOriginal * $chargePercentage) / 100;
+
             $transaction->pg_service_charge_bdt = $request->pg_service_charge_bdt;
             $transaction->amount_original = $request->amount_original;
             $transaction->gateway_fee = $request->gateway_fee;
-            $transaction->payment_charge = $paymentCharge;
+            $transaction->payment_charge = $paymentCharge - $request->gateway_fee;
             $transaction->pg_card_bank_name = $request->pg_card_bank_name;
             $transaction->card_number = $request->card_number;
             $transaction->card_holder = $request->card_holder;
@@ -382,7 +443,14 @@ class PaymentController extends Controller
 
     }
     public function fail(Request $request){
-        echo 'Payment is failed, please wait for the order to complete. Do not close/refresh your browser. Redirecting to...';
+        $title = "Payment is failed";
+        $spinner = true;
+        $h3 = "Payment is successful";
+        $h3Class = "text-danger";
+        $p = 'Please wait for the order to failed. Do not close/refresh your browser. Redirecting...';
+        $pClass = "text-danger";
+        $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+        echo $html;
         $transaction  = Transaction::where('tran_id',$request->mer_txnid)->first();
         $transaction->status = 'failed';
         $transaction->update();
@@ -440,7 +508,14 @@ class PaymentController extends Controller
     }
     public function cancel(Request $request){
         echo 'Payment is canceled, please wait for the order to complete. Do not close/refresh your browser. Redirecting to...';
-        return $request;
+        $title = "Payment is canceled";
+        $spinner = false;
+        $h3 = "Payment is successful";
+        $h3Class = "text-danger";
+        $p = 'Please wait for the order to canceled.';
+        $pClass = "text-danger";
+        $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+        return $html;
         $transaction  = Transaction::where('tran_id',$request->mer_txnid)->first();
         $transaction->status = 'canceled';
         $transaction->update();

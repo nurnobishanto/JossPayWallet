@@ -85,12 +85,15 @@ class PaymentController extends Controller
                     'ship_name' => $request->ship_name,
                     'cus_fax' => $request->cus_fax,
                 ]);
+
             }
             $transaction = Transaction::where('tran_id',$request->tran_id)->first();
             if($transaction->status != 'success'){
+                $originalAmount = $transaction->amount;
+                $extraAmount = $originalAmount * 0.03;
                 $fields = array(
                     'store_id' => env('AMAR_PAY_STORE_ID'), //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
-                    'amount' => $transaction->amount , //transaction amount
+                    'amount' => $transaction->amount+$extraAmount , //transaction amount
                     'payment_type' => 'VISA', //no need to change
                     'currency' => 'BDT',  //currenct will be USD/BDT
                     'tran_id' => $transaction->tran_id, //transaction id must be unique from your end
@@ -261,6 +264,7 @@ class PaymentController extends Controller
 
     }
     public function transaction_pay($id){
+        return $id;
         $title = "Redirecting..";
         $spinner = true;
         $h3 = "Don't refresh or reload this page.";
@@ -362,7 +366,7 @@ class PaymentController extends Controller
         if($transaction){
             $amountOriginal = $request->amount_original;
             //$chargePercentage = $transaction->store->charge;
-            $chargePercentage = 3;
+            $chargePercentage = 2.85;
             $paymentCharge = ($amountOriginal * $chargePercentage) / 100;
 
             $transaction->pg_service_charge_bdt = $request->pg_service_charge_bdt;
@@ -375,7 +379,7 @@ class PaymentController extends Controller
             $transaction->pay_status = $request->pay_status;
             $transaction->card_type = $request->card_type;
             $transaction->store_amount = $request->store_amount;
-            $transaction->customer_store_amount = $request->store_amount - $paymentCharge;
+            $transaction->customer_store_amount = min(($request->amount_original - $paymentCharge), $transaction->amount);
             $transaction->bank_txn = $request->bank_txn;
             $transaction->method = $request->card_type;
             $transaction->status = 'success';

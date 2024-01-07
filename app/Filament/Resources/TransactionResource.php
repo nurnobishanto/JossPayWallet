@@ -76,7 +76,7 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('cus_name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cus_phone')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('status')->sortable()
-            ])
+            ])->defaultSort('id','desc')
             ->filters([
                 SelectFilter::make('status')
                     ->placeholder('Filter by status')

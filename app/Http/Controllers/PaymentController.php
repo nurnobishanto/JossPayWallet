@@ -519,7 +519,6 @@ class PaymentController extends Controller
         return view('payment.redirect')->with('formHtml', $formHtml);
     }
     public function cancel(Request $request){
-        echo 'Payment is canceled, please wait for the order to complete. Do not close/refresh your browser. Redirecting to...';
         $title = "Payment is canceled";
         $spinner = false;
         $h3 = "Payment is successful";

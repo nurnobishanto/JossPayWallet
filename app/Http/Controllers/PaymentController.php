@@ -445,7 +445,7 @@ class PaymentController extends Controller
     public function fail(Request $request){
         $title = "Payment is failed";
         $spinner = true;
-        $h3 = "Payment is successful";
+        $h3 = "Payment is failed";
         $h3Class = "text-danger";
         $p = 'Please wait for the order to failed. Do not close/refresh your browser. Redirecting...';
         $pClass = "text-danger";
@@ -521,7 +521,7 @@ class PaymentController extends Controller
     public function cancel(Request $request){
         $title = "Payment is canceled";
         $spinner = false;
-        $h3 = "Payment is successful";
+        $h3 = "Payment is canceled";
         $h3Class = "text-danger";
         $p = 'Please wait for the order to canceled.';
         $pClass = "text-danger";

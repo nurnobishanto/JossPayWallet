@@ -452,8 +452,20 @@ class PaymentController extends Controller
         $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
         echo $html;
         $transaction  = Transaction::where('tran_id',$request->mer_txnid)->first();
-        $transaction->status = 'failed';
-        $transaction->update();
+        if ($transaction->status != 'success'){
+            $transaction->status = 'failed';
+            $transaction->update();
+        }else{
+            $title = "Already success";
+            $spinner = false;
+            $h3 = "Your payment already success";
+            $h3Class = "text-success";
+            $p = '';
+            $pClass = "text-info";
+            $html =  view('payment.loading',compact(['title','spinner','h3','h3Class','p','pClass']));
+            return $html;
+        }
+
         $postData = [
             'tran_id' => $transaction->tran_id,
             'amount' => $transaction->amount,

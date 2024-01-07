@@ -60,8 +60,8 @@
                     @if($spinner)
                         <div id="spinner"></div>
                     @endif
-                    <h3 class="{{$h3Class}}">{{$h3}}</h3>
-                        <p class="{{$pClass}}">{{$p}}</p>
+                    <h3 class="{{$h3Class}}">{!! $h3 !!}</h3>
+                        <p class="{{$pClass}}">{!! $p !!}</p>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script>
-  
+
     // Show spinner on page load
     $(document).ready(function () {
         $('#spinner').show();

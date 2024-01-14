@@ -264,7 +264,7 @@ class PaymentController extends Controller
 
     }
     public function transaction_pay($id){
-        return $id;
+
         $title = "Redirecting..";
         $spinner = true;
         $h3 = "Don't refresh or reload this page.";

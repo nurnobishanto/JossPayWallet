@@ -104,5 +104,27 @@ class WithdrawRequestController extends Controller
         toastr()->success(__('global.admin').__('global.deleted_success'),__('global.deleted'));
         return redirect()->route('admin.withdraw-requests.trashed');
     }
+    public function success($id){
+        App::setLocale(session('locale'));
+        $withdrawRequest = WithdrawRequest::withTrashed()->find($id);
+
+        if ($withdrawRequest) {
+            // Update the withdraw request status
+
+
+            // Update store balance
+            $store = $withdrawRequest->store;
+            if ($store) {
+                $store->balance -= $withdrawRequest->amount;
+                $store->update();
+
+                $withdrawRequest->status = 'success';
+                $withdrawRequest->update();
+            }
+
+        }
+        toastr()->success('Success');
+        return redirect()->route('admin.withdraw-requests.index');
+    }
 
 }

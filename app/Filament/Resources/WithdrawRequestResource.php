@@ -28,7 +28,7 @@ class WithdrawRequestResource extends Resource
         $user = auth()->user();
         $userStores = Store::where('user_id', $user->id)->where('status','active')->pluck('business_name', 'id')->toArray();
         $withdrawals = WithdrawAccount::where('status', 'active')
-            ->where('user_id', 1)
+            ->where('user_id', $user->id)
             ->get(['id', 'bank_name', 'account_name']);
 
         $accounts = [];
